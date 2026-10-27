@@ -1,0 +1,25 @@
+services:
+  elves:
+    build: .
+    ports:
+      - "31903:31903"
+    environment:
+      FLAG: "spooky{phdr_in_ehdr_c2d021cc4fc5}"
+      BYTE_LIMIT: "112"
+      RUN_TIMEOUT: "2"
+      REQUIRE_X86_64: "1"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # submissions execute inside this container. keep it away from anything
+    # sensitive; the published port is only the judge listener.
+    networks:
+      - judge
+
+networks:
+  judge:
+    driver: bridge

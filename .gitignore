@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+quine
+versions/
+submission
+*.o
